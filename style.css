@@ -252,6 +252,18 @@ html, body{
 	 transition: ease all 2s;
 }
 /* pluse-table end */
+/* smartwizard-table start */
+@media screen and (max-width: 640px) {  
+    .smartwizard-table .sw-theme-round>.nav .nav-link {
+        height: 80%;
+        min-height: 80%;
+    }
+
+    .smartwizard-table .sw-theme-arrows>.nav .nav-link {
+        padding-left: 45px;
+    }
+}
+/* smartwizard-table end */
 /* color-table start */
 .color-table .bg-color{
 	background-color: #5161ce;
@@ -431,12 +443,6 @@ html, body{
     border: 1px solid red;
 
 }
-
-/* 
-.slider-table .simple-table {
-    width: 100% !important;
-} 
-*/
 /* slider-table end*/
 /* modal-table start */
 .modal-backdrop.show {
