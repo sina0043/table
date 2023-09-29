@@ -15,7 +15,7 @@ document.querySelectorAll('.sidebar .list-group a').forEach(titleA=>{
     })
 })
 
-if(matchMedia('(width < 1200px)').matches) {
+if(matchMedia('(width <= 1200px)').matches) {
     $('.sidebar').addClass('active');
 }else {
     $('.sidebar').removeClass('active');
@@ -27,12 +27,16 @@ $('.navbar-btn').on('click', function () {
         if(className == 'active') {
             $('.sidebar').css('margin-left','-250px')
             $('.navbar-btn').css('left', "0")
+            $('.content').css('margin-left','0px')
         }else {
             $('.sidebar').css('margin-left','0')
             $('.navbar-btn').css('left', "250px")
+            if(matchMedia('(width > 1200px)').matches) {
+                $('.content').css('margin-left','250px')
+            }
         }
         /* close sidebar when click outside it */
-        if(matchMedia('(width < 1200px)').matches) {
+        if(matchMedia('(width <= 1200px)').matches) {
             document.querySelector('.content').addEventListener('click', function handleClickOutsideBox(event) {
                 const box = document.querySelector('.sidebar');
                 if (!box.contains(event.target)) {
@@ -204,16 +208,66 @@ btnEasingTable.addEventListener('click',(e)=>{
 });
 
 /* slider-table */
+let thumbnails = 0
+
+if(matchMedia('(width >= 1800px)').matches) {
+    thumbnails = 15;
+}else if(matchMedia('(width >= 1200px)').matches) {
+    thumbnails = 9;
+}else if(matchMedia('(width >= 600px)').matches) {
+    thumbnails = 7;
+}else {
+    thumbnails = 5;
+}
+
 $('#image-gallery').lightSlider({
     gallery:true,
     item:1,
-    thumbItem:9,
+    thumbItem: thumbnails,
     slideMargin: 30,
     loop:true,
     onSliderLoad: function() {
         $('#image-gallery').removeClass('cS-hidden');
     }  
 });
+
+document.querySelector('.navbar-btn').addEventListener('click',()=>{
+    setTimeout(() => {
+        sliderTableRespansive()
+    }, 1000);
+})
+
+$(window).on('load', function(){ 
+    document.querySelectorAll('.slider-table img').forEach(element=>{
+        element.addEventListener('click',()=>{
+            setTimeout(() => {
+                sliderTableRespansive()
+            }, 10);
+        })
+    })
+});
+
+function sliderTableRespansive() {
+    if(matchMedia('(width > 1200px)').matches) {
+        document.querySelector('.sidebar').classList.forEach(classname=>{ 
+            if(classname == 'active') {
+                document.querySelectorAll('.slider-table ul.gallery li').forEach(element =>{
+                    element.classList.forEach(elementClasses=>{
+                        if(elementClasses == 'active') {
+                            element.style.width = document.querySelector('.content .margin').clientWidth +'px'
+                        }else {
+                            element.style.width = document.querySelector('.content .margin').clientWidth -250 +'px'
+                        }
+                    })
+                })
+            }else {
+                document.querySelectorAll('.slider-table ul.gallery li').forEach(element =>{
+                    element.style.width = document.querySelector('.content .margin').clientWidth +'px'
+                })
+            }
+        })
+    }
+}
 /* search-table */
 var filterInputSearchTable = document.querySelector('.search-table input[type=text]')
 var RowSearchTable = document.querySelectorAll('.search-table .simple-table tbody tr')
@@ -352,14 +406,6 @@ function AutoScrollOff(){
 }
 
 /* sliderPro-table */
-window.addEventListener('DOMContentLoaded',()=>{
-    if(matchMedia('(width > 1200px)').matches) {
-        document.querySelectorAll('.sliderPro-table .sp-slide').forEach(element=>{
-            element.style.width = document.querySelector('.content .margin').clientWidth - 290 +'px'
-        })
-    }
-})
-
 $( '.sliderPro-table .slider-pro' ).sliderPro({
     height: 600,
     orientation: 'vertical',
@@ -375,7 +421,7 @@ $( '.sliderPro-table .slider-pro' ).sliderPro({
     fullScreen: true,
     shuffle: true,
     breakpoints: {
-      1200: {
+      1180: {
         thumbnailsPosition: 'bottom',
         thumbnailWidth: 170,
         thumbnailHeight: 100
@@ -386,6 +432,24 @@ $( '.sliderPro-table .slider-pro' ).sliderPro({
       }
     }
 });
+
+window.addEventListener('DOMContentLoaded',()=>{
+    sliderProTableRespansive()
+})
+
+document.querySelector('.navbar-btn').addEventListener('click',()=>{
+    setTimeout(() => {
+        sliderProTableRespansive()
+    }, 1000);
+})
+
+function sliderProTableRespansive() {
+    if(matchMedia('(width >= 1198px)').matches) {
+        document.querySelectorAll('.sliderPro-table .sp-slide').forEach(element=>{
+            element.style.width = document.querySelector('.content .margin').clientWidth - 290 +'px'
+        })
+    }
+}
 
 /* sortable-table */
 var exampleSortable = document.querySelector('.sortable-table .simple-table tbody')
@@ -514,6 +578,20 @@ document.querySelectorAll('.timeline-table .timeline-item').forEach(element=>{
 
 document.querySelector('.timeline-dots li.slide-active button').click()
 
+document.querySelector('.navbar-btn').addEventListener('click',()=>{
+    setTimeout(() => {
+        timelineTableRespansive()
+    }, 1000);
+})
+
+function timelineTableRespansive() {
+    if(matchMedia('(width > 1200px)').matches) {
+        document.querySelectorAll('.timeline-table .timeline-item').forEach(element =>{
+            element.style.width = document.querySelector('.content .margin').clientWidth +'px'
+            document.querySelector('.timeline-dots li.slide-active button').click()
+        })
+    }
+}
 /* wow-table */
  new WOW().init();
 

@@ -179,6 +179,12 @@ html, body{
     color: red;
 }
 
+.content {
+    overflow-x: hidden;
+    margin-left: 250px;
+    transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+}
+
 @media screen and (max-width: 1200px) {  
     .sidebar {
         margin-left: -250px;
@@ -187,10 +193,10 @@ html, body{
     .navbar-btn {
         left: 0;
     }
-}
 
-.content {
-    overflow-x: hidden;
+    .content {
+        margin-left: 0px;
+    }
 }
 /* sidebar end */
 /* sample-table start */
