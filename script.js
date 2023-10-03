@@ -15,6 +15,34 @@ document.querySelectorAll('.sidebar .list-group a').forEach(titleA=>{
     })
 })
 
+document.querySelectorAll('section').forEach(mysections=>{
+    mysections.addEventListener('mouseover',(e)=>{
+        e.currentTarget.classList.forEach(classNameSection=>{
+            document.querySelectorAll('.sidebar-main .list-group a').forEach(mySidebarLinks=>{
+                if(classNameSection === mySidebarLinks.href.slice(mySidebarLinks.href.indexOf("#") + 1).replace('-title','')) {
+                    document.querySelectorAll('.sidebar-main .list-group a').forEach(mySidebarLinksTwo=>{
+                        mySidebarLinksTwo.classList.remove('active')
+                    })
+                    mySidebarLinks.classList.add('active')
+                }
+            })
+        })
+    })
+}) 
+
+document.querySelectorAll('h3').forEach(mytitles=>{
+    mytitles.addEventListener('mouseover',(e)=>{
+        document.querySelectorAll('.sidebar-main .list-group a').forEach(mySidebarLinksOne=>{
+            if(e.currentTarget.id === mySidebarLinksOne.href.slice(mySidebarLinksOne.href.indexOf("#") + 1)) {
+                document.querySelectorAll('.sidebar-main .list-group a').forEach(mySidebarLinksTwo=>{
+                    mySidebarLinksTwo.classList.remove('active')
+                })
+                mySidebarLinksOne.classList.add('active')
+            }
+        }) 
+    })
+}) 
+
 if(matchMedia('(width <= 1200px)').matches) {
     $('.sidebar').addClass('active');
 }else {
@@ -459,7 +487,7 @@ new Sortable(exampleSortable, {
 });
 
 /* swiper-table-one */
-new Swiper('.swiper-table-one', {
+new Swiper('.swiper-table-one .mx-0', {
     effect: 'cards',
     grabCursor: true,
 });
